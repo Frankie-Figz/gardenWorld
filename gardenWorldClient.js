@@ -9,6 +9,7 @@ var keys = require("./keys.js");
 var currentQtyProduct = 0;
 var inquirerProducyQty = 0;
 var currentProductID = 0;
+var currentPriceProduct = 0;
 
 var connection = mysql.createConnection({
     // Your host
@@ -32,7 +33,7 @@ function createChoicesArray(a){
 };
 
 function queryProductStock(id){
-    let sqlQueryCurrentQty = "SELECT stock_quantity FROM product WHERE product_id = " + id;
+    let sqlQueryCurrentQty = "SELECT stock_quantity, price FROM product WHERE product_id = " + id;
 
     connection.query(sqlQueryCurrentQty, function(err, response) {
         if(err){
@@ -40,9 +41,8 @@ function queryProductStock(id){
             // connection.end();
         } else {
             console.log("I am here trying to stock it !");
-            console.log(typeof(response[0].stock_quantity));
             currentQtyProduct = response[0].stock_quantity;
-   
+            currentPriceProduct = response[0].price;
             console.log("------------------------------");
             // connection.end();
         }
@@ -60,10 +60,10 @@ function consumeProduct(id,qty){
     console.log("Product ID : " + id);
 
     // Forms sql query to update product
-    let sqlQueryUpdateQty = "UPDATE product SET stock_quantity = " + currentQtyProduct + " WHERE product_id = " + id;
+    let sqlQueryUpdateQty = "UPDATE product SET stock_quantity = ?, product_sales = product_sales + ? WHERE product_id = ?";
 
     // Consumes the query and hopefully updates the product qty
-    connection.query(sqlQueryUpdateQty, function(err,response){
+    connection.query(sqlQueryUpdateQty, [currentQtyProduct,currentPriceProduct*inquirerProducyQty,id] ,function(err,response){
         if(err){
             console.log(" Error with product update: " + err);
         } else {
@@ -92,7 +92,7 @@ function viewProducts() {
         console.log(createChoicesArray(response));
 
         for (var i = 0; i < response.length; i++)
-          console.log(response[i].product_id + " : " + response[i].product_name + ", " + response[i].department_id + ", " + response[i].stock_quantity + ", " + response[i].product_sales);
+          console.log(response[i].product_id + " : " + response[i].product_name + ", " + response[i].price + " , " + response[i].department_id + ", " + response[i].stock_quantity + ", " + response[i].product_sales);
         
         console.log("------------------------------");
 
