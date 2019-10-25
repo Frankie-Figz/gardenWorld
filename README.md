@@ -37,10 +37,6 @@ Documentation of the functionality can be found here :
 
  </ul>
  
-## Do-what-it-says
- The "Do-what-it-says" function executes instruction that are written in the "Random.txt" file. 
- For example, if you were to have "movie-this,jaws" in the text file then the movie-this function would be executed with the string of "jaws".
-
 # Technology Stack
 The main language of this project is Javascript using mySQL as the database.
 
