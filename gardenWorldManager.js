@@ -57,9 +57,10 @@ function viewLowInventory(){
         connection.end();
       } else {
         console.log("------------------------------");
+        console.log("Product ID" + " : " + "Product Name" + " : " + "Department ID" + " : " + "Stock Quantity");       
         
         for (var i = 0; i < response.length; i++)
-          console.log(response[i].product_id + " : " + response[i].product_name + " : " + response[i].department_id + " : " + response[i].stock_quantity + " : " + response[i].product_sales);       
+          console.log(response[i].product_id + " : " + response[i].product_name + " : " + response[i].department_id + " : " + response[i].stock_quantity);       
         
         console.log("------------------------------");
         }
@@ -82,11 +83,11 @@ function addToProductStock(){
 
     console.log("Updating the product inventory quantities...\n");
 
-    var query = connection.query(
-      "UPDATE products SET ? WHERE ?",
+    connection.query(
+      "UPDATE product SET ? WHERE ?",
       [
         {
-          stock_quantiy: inquirerResponse.productQtyInput
+          stock_quantity: inquirerResponse.productQtyInput
         },
         {
           product_id: inquirerResponse.productIdInput
@@ -162,12 +163,10 @@ function promptManager(){
                     setTimeout(keepManaging,1000);
                     break;
                 case 'Add Product to Catalogue':
-                    viewProductCatalogue();
                     addNewProduct();
                     break;
                 case 'Add Product Stock':
                     addToProductStock();
-                    setTimeout(keepManaging,1000);
                     break;
                 case 'View Low Inventory':
                     viewLowInventory();

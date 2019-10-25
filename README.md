@@ -11,7 +11,7 @@
 
 # Functionality
 Documentation of the functionality can be found here :
-<a href=" "> PDF</a>
+<a href="https://drive.google.com/open?id=1iUoindp9V6U_S0BpibPPAcijsQ1FP1-b"> PDF</a>
 
 ## gardenWorldClient
   The Garden World Client module displays the product catalogue alongside the current stock per product. After displaying the catalogue it prompts the user to enter a product and the qty of the product that they wish to purchase.  <br>

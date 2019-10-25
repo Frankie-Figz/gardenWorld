@@ -85,8 +85,11 @@ function consumeProduct(id,qty){
 function compareProductQty(){
     if(inquirerProducyQty > currentQtyProduct)
         console.log("Not enough product qty on hand ! " + "The requested " + inquirerProducyQty + "units is more than current stock of " + currentQtyProduct + " units !");
-    else
+    else{
         consumeProduct(currentProductID,inquirerProducyQty);
+        console.log("Thank you for your purchase ! The total of your invoice is : $ "  + (inquirerProducyQty * currentPriceProduct).toFixed(2) );
+        console.log("------------------------------");
+    }
 };
 
 // The main function of the client. This ties together all the above functions and is also used to recurse over a confirm prompt.
@@ -135,10 +138,8 @@ function viewProducts() {
 
                 // Re-prompts the user for the products on the inventory list. The timeout is used in order to deal with the asynchronous nature of node
                 setTimeout(viewProducts,1500);
-                });
-                
-        console.log("Thank you for your purchase ! The total of your invoice is : $ "  + (inquirerProducyQty * currentPriceProduct).toFixed(2) );
-        console.log("------------------------------");        
+               
+                });        
       }
     });
   };
